@@ -1,18 +1,12 @@
-
 package negocio;
 
-
-public class Cliente extends Persona{
+public class Cliente extends Persona {
     
-    public int ingresos;        
-    
-    public int antiguedad;
-    
-    public int egresos;
-    
+    private int ingresos;        
+    private int antiguedad;
+    private int egresos;
     private Vinculacion vinculacion;
-    
-    public int patrimonio;
+    private int patrimonio;
 
     public int getIngreso() {
         return ingresos;
@@ -54,5 +48,18 @@ public class Cliente extends Persona{
         this.vinculacion = vinculacion;
     }
     
+    //Aqui se da el encapsulamiento
     
+    public int calcularCapacidadDePago() {
+        return this.ingresos - this.egresos;
+    }
+    
+
+    public int calcularSuperavitRequerido() {
+        return (this.ingresos * 35) / 100;
+    }  
+
+    public boolean esAptoParaCredito() {
+        return calcularCapacidadDePago() >= calcularSuperavitRequerido();
+    }
 }

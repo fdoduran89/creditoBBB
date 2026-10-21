@@ -1,13 +1,10 @@
-
 package negocio;
-
 
 public class Asesor {
     
     private int codigo;
     
     private int antiguedad;
-    
 
     public int getCodigo() {
         return codigo;
@@ -24,6 +21,5 @@ public class Asesor {
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
     }
-    
     
 }

@@ -1,21 +1,12 @@
-
 package negocio;
-
-import java.text.DecimalFormat;
-
 
 public class Credito {
     
     private float monto;
-    
     private int plazo;
-    
     private float tasa;
-    
     private double cuota;
-    
     private Cliente cliente; 
-    
     private tipoCredito tipoCredito;
 
     public float getMonto() {
@@ -58,19 +49,15 @@ public class Credito {
         this.tipoCredito = tipoCredito;
     }
     
-        
     public double getCuota() {
         return cuota;
     }
     
     public void obtenerAmortizacion(){
         
-        DecimalFormat df = new DecimalFormat("###,###,###.##");
-        
         cuota = calcularCuota();
         
-        System.out.println("El valor de la cuota es: " + df.format(Math.round(cuota)) );
-        
+        System.out.println("El valor de la cuota es: $" + Math.round(cuota));
         
         System.out.println("Tabla de Amortización");
         System.out.println("=====================");
@@ -80,24 +67,41 @@ public class Credito {
         double interesPagado = 0;
         double interesMensual = 0;
         double capital = 0;
-        double restante = 0;
+        double restante = monto;
         
-        // CONTINUAR CON EL METODO PARA GENERAR LA TABLA DE AMORTIZACION
-        //
-        //
+        for (int i = 1; i <= plazo; i++) {
+            interesMensual = restante * tasa;
+            capital = cuota - interesMensual;
+            
+            if (i == plazo) {
+                capital = restante;
+                cuota = interesMensual + capital;
+            }
+            
+            restante -= capital;
+            if (restante < 0.01) restante = 0;
+            
+            interesPagado += interesMensual;
+            
+            System.out.printf("%d\t$%d\t\t$%d\t\t$%d\t\t$%d%n",
+                    i,
+                    Math.round(cuota),
+                    Math.round(interesMensual),
+                    Math.round(capital),
+                    Math.round(restante));
+        }
        
-        System.out.println("El interes pagado es: $" + df.format(Math.round(interesPagado)));
+        System.out.println("El interes pagado es: $" + Math.round(interesPagado));
     }
     
-    // CONTINUAR CON EL METODO PARA CALCULAR LA CUOTA MENSUAL
     private double calcularCuota(){
-                       
-       // 
-       //
-       
-        this.cuota = 0;
+        
+        if (tasa == 0) {
+            this.cuota = monto / plazo;
+        } else {
+            this.cuota = monto * (tasa / (1 - Math.pow(1 + tasa, -plazo)));
+        }
         
         return cuota;
     }
 }
-
