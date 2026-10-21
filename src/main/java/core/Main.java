@@ -6,6 +6,7 @@ import negocio.Cliente;
 import negocio.Credito;
 import negocio.Vinculacion;
 import negocio.tipoCredito;
+import negocio.CreadorCodigo;
 
 public class Main {
 
@@ -123,5 +124,11 @@ public class Main {
         }
         
         sc.close();
+        System.out.println("");
+        System.out.println("*********************************");
+        System.out.println("Este codigo fue modificado por "+CreadorCodigo.FERNANDO_ANDRES_DURAN_MONTOYA);
+        System.out.println("*********************************");
     }
+    
+    
 }
