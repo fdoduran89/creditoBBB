@@ -1,31 +1,21 @@
-
 package negocio;
 
-
-public class Empleado {
+public class Empleado extends Persona {
     
-    protected float salario;
-    
+    protected float salarioBase;
     protected float retencion;
 
-    public float getSalario() {
-        return salario;
-    }
+    public float getSalarioBase() { return salarioBase; }
+    public void setSalarioBase(float salarioBase) { this.salarioBase = salarioBase; }
 
-    public void setSalario(float salario) {
-        this.salario = salario;
-    }
+    public float getRetencion() { return retencion; }
+    public void setRetencion(float retencion) { this.retencion = retencion; }
 
-    public float getRetencion() {
-        return retencion;
-    }
-
-    public void setRetencion(float retencion) {
-        this.retencion = retencion;
+    public float liquidarSalario() {
+        return salarioBase - retencion;
     }
     
-    public float liquidarSalario(){
-        
-        return salario - retencion;
+    public float getComision() {
+        return 0.0f;
     }
 }

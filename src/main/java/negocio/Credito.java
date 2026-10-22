@@ -29,10 +29,6 @@ public class Credito {
         return tasa;
     }
 
-    public void setTasa(float tasa) {
-        this.tasa = tasa;
-    }
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -44,13 +40,26 @@ public class Credito {
     public tipoCredito getTipoCredito() {
         return tipoCredito;
     }
-
-    public void setTipoCredito(tipoCredito tipoCredito) {
-        this.tipoCredito = tipoCredito;
-    }
     
     public double getCuota() {
         return cuota;
+    }
+    
+    public boolean configurarDesdeEnum(tipoCredito tipo, int aniosSolicitados) {
+        this.tipoCredito = tipo;
+        this.tasa = tipo.getTasa();
+        
+        int minimo = tipo.getPlazoMinimoAnios();
+        boolean valido = true;
+        
+        if (aniosSolicitados < minimo) {
+            this.plazo = minimo * 12;
+            valido = false;
+        } else {
+            this.plazo = aniosSolicitados * 12;
+        }
+        
+        return valido;
     }
     
     public void obtenerAmortizacion(){
@@ -59,10 +68,12 @@ public class Credito {
         
         System.out.println("El valor de la cuota es: $" + Math.round(cuota));
         
+        System.out.println("");
+        System.out.println("=====================");
         System.out.println("Tabla de Amortización");
         System.out.println("=====================");
     
-        System.out.println("Mes\tCuota Fija Mensual\tInterés Mensual\t\tCapital\t\tSaldo Pendiente");
+        System.out.println("Mes\tCuota\tInterés Mensual\t\tCapital\t\tSaldo Pendiente");
     
         double interesPagado = 0;
         double interesMensual = 0;
@@ -94,14 +105,13 @@ public class Credito {
         System.out.println("El interes pagado es: $" + Math.round(interesPagado));
     }
     
+
     private double calcularCuota(){
-        
         if (tasa == 0) {
             this.cuota = monto / plazo;
         } else {
             this.cuota = monto * (tasa / (1 - Math.pow(1 + tasa, -plazo)));
         }
-        
         return cuota;
     }
 }
